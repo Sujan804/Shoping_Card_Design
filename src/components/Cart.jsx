@@ -9,11 +9,16 @@ const Cart = () => {
       <main className="py-16">
         <div className="container 2xl:px-8 px-2 mx-auto">
           <h2 className="mb-8 text-xl font-bold">Shopping Cart</h2>
+
           <div className="cartListContainer">
             <div className="space-y-6">
-              {carts.map((cart) => (
-                <CartView cart={cart} />
-              ))}
+              <hr />
+              <br />
+              {carts.length === 0 ? (
+                <i className="mb-8 text-xl font-bold">No Shopping Cart</i>
+              ) : (
+                carts.map((cart) => <CartView cart={cart} />)
+              )}
             </div>
 
             <div>
