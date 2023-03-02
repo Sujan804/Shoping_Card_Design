@@ -4,6 +4,7 @@ import initialState from './initialState';
 const reducer = (state = initialState, action)=>{
     switch(action.type){
         case ADD_CART:
+            console.log("from", action.payload)
             return [
                 ...state, action.payload
             ]
@@ -13,7 +14,7 @@ const reducer = (state = initialState, action)=>{
         case INCREMENT_CART:
             const newCarts = state.map((cart)=>{
                 if(cart.id===action.payload){
-                    cart.quantity += 1;
+                    cart.item += 1;
                     return cart;
                 }else{
                     return cart;
@@ -23,8 +24,8 @@ const reducer = (state = initialState, action)=>{
             case DECREMENT_CART:
                 const newCarts1 = state.map((cart)=>{
                     if(cart.id===action.payload){
-                        if(cart.quantity>0){
-                            cart.quantity -= 1
+                        if(cart.item>0){
+                            cart.item -= 1
                         }
                         return cart;
                     }else{

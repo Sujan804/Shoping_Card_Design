@@ -28,3 +28,4 @@ const decrementCart = (id)=>{
 }
 
 export { addCart, deleteCart, incrementCart, decrementCart };
+

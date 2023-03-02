@@ -1,9 +1,33 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addCart, incrementCart } from "../redux/carts/actions";
+import { decrementProduct } from "../redux/products/actions";
 import ProductForm from "./ProductForm";
 const Body = () => {
   const products = useSelector((state) => state.product);
+  const carts = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  // console.log(carts);
+  const addCartHandler = (product) => {
+    // console.log(product);
+    const id = product.id;
+    console.log(id);
+    const ExistingCart = carts.filter((cart) => cart.id === id);
 
+    console.log(ExistingCart);
+    if (ExistingCart.length > 0) {
+      dispatch(incrementCart(id));
+      dispatch(decrementProduct(id));
+    } else {
+      dispatch(
+        addCart({
+          ...product,
+          item: 1,
+        })
+      );
+      dispatch(decrementProduct(id));
+    }
+  };
   return (
     <main className="py-16">
       <div className="productWrapper">
@@ -31,7 +55,13 @@ const Body = () => {
                       <span className="lws-quantity">{product.quantity}</span>
                     </p>
                   </div>
-                  <button className="lws-btnAddToCart">Add To Cart</button>
+                  <button
+                    className="lws-btnAddToCart"
+                    disabled={product.quantity === 0 ? true : false}
+                    onClick={() => addCartHandler(product)}
+                  >
+                    Add To Cart
+                  </button>
                 </div>
               </div>
             ))
