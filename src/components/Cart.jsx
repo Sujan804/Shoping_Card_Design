@@ -3,6 +3,10 @@ import { useSelector } from "react-redux";
 import CartView from "./CartView";
 const Cart = () => {
   const carts = useSelector((state) => state.cart);
+  const totalPrice = carts.reduce(
+    (total, cart) => (total += cart.item * cart.price),
+    0
+  );
 
   return (
     <div>
@@ -30,7 +34,7 @@ const Cart = () => {
                   <div className="flex items-center justify-between">
                     <p>Sub Total</p>
                     <p>
-                      BDT <span className="lws-subtotal">8800</span>
+                      BDT <span className="lws-subtotal">{totalPrice}</span>
                     </p>
                   </div>
 
